@@ -7,7 +7,7 @@
         return userRole;
       },
       inAudienceValidationFunction: function (userRoles, audiences) {
-        var userAudiences = _.map(userRoles, this.roleToAudienceMapFunction);
+        var userAudiences = _.flatten(userRoles, this.roleToAudienceMapFunction);
         return !_.isEmpty(userAudiences) && !_.isEmpty(audiences) &&
           (_.find(audiences, function (audience) { return _.contains(userAudiences, audience); }) !== undefined);
       }
