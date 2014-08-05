@@ -29,7 +29,7 @@
           var args = _.toArray(arguments);
           var authenticated = $authentication.isAuthenticated();
           // handle 'all' and 'anonymous' special cases
-          if (args.length === 1) {
+          if (args.length === 1 && _.isString(args[0])) {
             if (args[0].toUpperCase() === 'ALL') {
               return authenticated;
             }
