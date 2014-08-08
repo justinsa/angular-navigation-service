@@ -1,9 +1,9 @@
 {
-  "name": "ng-authentication-service",
+  "name": "ng-navigation-service",
   "version": "0.0.1",
   "dependencies": {
     "angular": "^1.2.19",
-    "angular-authentication-service": "EQCO/angular-oauth-service",
+    "angular-oauth-service": "EQCO/angular-oauth-service",
     "angular-cookies": "^1.2.19",
     "angular-local-storage-service": "EQCO/angular-local-storage-service",
     "jquery": "^2.1.0",
