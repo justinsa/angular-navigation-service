@@ -77,5 +77,50 @@ describe('services', function() {
         );
       });
     });
+
+    describe('isActiveLocation', function() {
+      it('should be false if non-string is passed in',
+        inject(function ($location, $navigation) {
+          $location.path('/home');
+          $location.path().should.match('/home');
+          $navigation.isActiveLocation().should.be.false; // jshint ignore:line
+          $navigation.isActiveLocation(undefined).should.be.false; // jshint ignore:line
+          $navigation.isActiveLocation(null).should.be.false; // jshint ignore:line
+          $navigation.isActiveLocation({}).should.be.false; // jshint ignore:line
+          $navigation.isActiveLocation([]).should.be.false; // jshint ignore:line
+          $navigation.isActiveLocation(1).should.be.false; // jshint ignore:line
+        })
+      );
+
+      it('should be false if empty or whitespace string is passed in',
+        inject(function ($location, $navigation) {
+          $location.path('/home');
+          $location.path().should.match('/home');
+          $navigation.isActiveLocation('').should.be.false; // jshint ignore:line
+          $navigation.isActiveLocation(' ').should.be.false; // jshint ignore:line
+        })
+      );
+
+      it('should be false if the location is not active',
+        inject(function ($location, $navigation) {
+          $location.path('/home');
+          $location.path().should.match('/home');
+          $navigation.isActiveLocation('/').should.be.false; // jshint ignore:line
+          $navigation.isActiveLocation('/homer').should.be.false; // jshint ignore:line
+          $navigation.isActiveLocation('/hom').should.be.false; // jshint ignore:line
+          $navigation.isActiveLocation('homer').should.be.false; // jshint ignore:line
+          $navigation.isActiveLocation('hom').should.be.false; // jshint ignore:line
+        })
+      );
+
+      it('should be true if the location is active',
+        inject(function ($location, $navigation) {
+          $location.path('/home');
+          $location.path().should.match('/home');
+          $navigation.isActiveLocation('/home').should.be.true; // jshint ignore:line
+          $navigation.isActiveLocation('home').should.be.true; // jshint ignore:line
+        })
+      );
+    });
   });
 });
