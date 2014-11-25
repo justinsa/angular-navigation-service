@@ -28,7 +28,6 @@
   "devDependencies": {
     "angular-mocks": "*",
     "mocha": "*",
-    "should": "*",
-    "sinon": "*"
+    "should": "*"
   }
 }

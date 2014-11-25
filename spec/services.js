@@ -40,6 +40,21 @@ describe('services', function() {
 
     describe('inAudience', function() {
       describe('with no authenticated user', function() {
+        beforeEach(function() {
+          module(function ($provide) {
+            $provide.factory('$security', function () {
+              return {
+                isAuthenticated: function () {
+                  return false;
+                },
+                roles: function () {
+                  return [];
+                }
+              };
+            });
+          });
+        });
+
         it('should be true if anonymous',
           inject(function ($navigation) {
             $navigation.inAudience('anonymous').should.be.true; // jshint ignore:line
@@ -54,42 +69,51 @@ describe('services', function() {
       });
 
       describe('with an authenticated user', function() {
-        beforeEach(
-          inject(function ($store){
-            $store.set('user.profile', { roles: ['a'] });
-          })
-        );
+        beforeEach(function() {
+          module(function ($provide) {
+            $provide.factory('$security', function () {
+              return {
+                isAuthenticated: function () {
+                  return true;
+                },
+                roles: function () {
+                  return ['a'];
+                }
+              };
+            });
+          });
+        });
 
         it('should be false if anonymous',
-          inject(function ($authentication, $navigation) {
-            $authentication.isAuthenticated().should.be.true; // jshint ignore:line
+          inject(function ($security, $navigation) {
+            $security.isAuthenticated().should.be.true; // jshint ignore:line
             $navigation.inAudience('anonymous').should.be.false; // jshint ignore:line
           })
         );
 
         it('should be true if all',
-          inject(function ($authentication, $navigation) {
-            $authentication.isAuthenticated().should.be.true; // jshint ignore:line
+          inject(function ($security, $navigation) {
+            $security.isAuthenticated().should.be.true; // jshint ignore:line
             $navigation.inAudience('all').should.be.true; // jshint ignore:line
           })
         );
 
         it('should be false if user is not in audience',
-          inject(function ($authentication, $navigation) {
-            $authentication.isAuthenticated().should.be.true; // jshint ignore:line
+          inject(function ($security, $navigation) {
+            $security.isAuthenticated().should.be.true; // jshint ignore:line
             $navigation.inAudience('b').should.be.false; // jshint ignore:line
           })
         );
 
         it('should be true if user is in audience',
-          inject(function ($authentication, $navigation) {
-            $authentication.isAuthenticated().should.be.true; // jshint ignore:line
+          inject(function ($security, $navigation) {
+            $security.isAuthenticated().should.be.true; // jshint ignore:line
             $navigation.inAudience('a').should.be.true; // jshint ignore:line
           })
         );
 
         it('should be true if user is in any specified audience group',
-          inject(function ($authentication, $navigation) {
+          inject(function ($security, $navigation) {
             $navigation.inAudience('a', 'b').should.be.true; // jshint ignore:line
           })
         );
