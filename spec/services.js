@@ -1,19 +1,37 @@
 /* globals beforeEach, describe, inject, it */
 'use strict';
 describe('services', function() {
-  beforeEach(module('authentication.service', 'navigation.service', 'local.storage'));
+  beforeEach(function() {
+    module('navigation.service', function ($navigationProvider, $provide) {
+      $navigationProvider.configure({
+        securityService: '$security'
+      });
+      $provide.factory('$security', function () {
+        return {
+          isAuthenticated: function () {
+            return true;
+          },
+          roles: function () {
+            return ['customer', 'internal'];
+          }
+        };
+      });
+    });
+  });
 
   describe('$navigation', function() {
     it('should have an expected default configuration',
       inject(function ($navigation) {
         var configuration = $navigation.getConfiguration();
         configuration.inAudienceValidationFunction.should.be.a.function; // jshint ignore:line
+        configuration.roleToAudienceMapFunction.should.be.a.function; // jshint ignore:line
+        configuration.securityService.should.equal('$security');
       })
     );
 
     it('should have a list of functions',
       inject(function ($navigation) {
-        var functions = ['inAudience', 'getConfiguration'];
+        var functions = ['inAudience', 'isActiveLocation', 'getConfiguration'];
         for (var i in functions) {
           $navigation[functions[i]].should.be.a.function; // jshint ignore:line
         }

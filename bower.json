@@ -1,18 +1,34 @@
 {
   "name": "ng-navigation-service",
+  "author": "justinsa",
+  "description": "A navigation helper service for Angular client applications.",
+  "keywords": [
+    "angular",
+    "navigation",
+    "provider"
+  ],
+  "homepage": "https://github.com/EQCO/angular-navigation-service",
+  "main": "./angular-navigation-service.js",
+  "ignore": [
+    ".jshintrc",
+    "gulpfile.js",
+    "package.json",
+    "test.html",
+    "spec/services.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/EQCO/angular-navigation-service.git"
+  },
   "version": "0.0.2",
   "dependencies": {
-    "angular": "^1.2.19",
-    "angular-oauth-service": "EQCO/angular-oauth-service",
-    "angular-cookies": "^1.2.19",
-    "angular-local-storage-service": "EQCO/angular-local-storage-service",
-    "jquery": "^2.1.0",
+    "angular": ">=1.2.19",
     "lodash": "^2.4.1"
   },
   "devDependencies": {
-    "angular-mocks": "^1.2.19",
-    "mocha": "~1.20.0",
-    "should": "~3.3.1",
-    "sinon": "~1.10.1"
+    "angular-mocks": "*",
+    "mocha": "*",
+    "should": "*",
+    "sinon": "*"
   }
 }

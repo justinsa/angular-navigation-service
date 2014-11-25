@@ -1,8 +1,9 @@
 (function (window, _, angular, undefined) {
   'use strict';
-  var module = angular.module('navigation.service', ['authentication.service']);
+  var module = angular.module('navigation.service', []);
   module.provider('$navigation', function () {
     var configuration = {
+      securityService: undefined,
       roleToAudienceMapFunction: function (userRole) {
         return userRole;
       },
@@ -20,14 +21,36 @@
       configuration = _.defaults(configurationOpts, configuration);
     };
 
-    this.$get = ['$authentication', '$location', function ($authentication, $location) {
+    this.$get = ['$injector', '$location', '$log', function ($injector, $location, $log) {
+      var secService;
+      var securityService = function () {
+        if (secService === undefined) {
+          if (!_.isString(configuration.securityService)) {
+            $log.error('No securityService configuration value provided');
+            return undefined;
+          }
+          if (!$injector.has(configuration.securityService)) {
+            $log.error('No matching service registered in Angular: ', configuration.securityService);
+            return undefined;
+          }
+          secService = $injector.get(configuration.securityService);
+          _.each(['isAuthenticated', 'roles'], function (methodName) {
+            if (!_.has(secService, methodName)) {
+              $log.error('Matching service is missing method: ', methodName);
+              return undefined;
+            }
+          });
+        }
+        return secService;
+      };
+
       return {
         /**
          * returns true if the user is in any of the specified audiences.
          */
         inAudience: function () {
           var args = _.toArray(arguments);
-          var authenticated = $authentication.isAuthenticated();
+          var authenticated = securityService().isAuthenticated();
           // handle 'all' and 'anonymous' special cases
           if (args.length === 1 && _.isString(args[0])) {
             if (args[0].toUpperCase() === 'ALL') {
@@ -41,7 +64,7 @@
           if (args.length === 0 || !authenticated) {
             return false;
           }
-          return configuration.inAudienceValidationFunction($authentication.roles(), args);
+          return configuration.inAudienceValidationFunction(securityService().roles(), args);
         },
 
         /**
