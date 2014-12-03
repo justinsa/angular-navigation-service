@@ -33,6 +33,8 @@ The default configuration is:
   2. function ```roles()```
 2. roleToAudienceMapFunction: function returns the userRole provided.
 3. inAudienceValidationFunction: function determines if the userRoles are in the audiences.
+4. activeLinkDecorator: mixed
+5. inactiveLinkDecorator: mixed
 
 To override the default configuration options, configure the module with an options argument during application configuration:
 ```JAVASCRIPT
@@ -61,6 +63,21 @@ $navigation.inAudience('X', 'Y', 'Z');
 ```JAVASCRIPT
 // returns true if the location is the current active location.
 $navigation.isActiveLocation('/dashboard');
+```
+
+###decorateLink
+decorateLink: function (item, active, inactive) {
+```JAVASCRIPT
+// $navigation.decorateLink(item, active, inactive);
+// returns the active decorator if the location is the current active location.
+// returns the inactive decorator if the location is not the current active location.
+$navigation.decorateLink('/dashboard', 'active-item', undefined);
+
+// parameters @active and @inactive are optional and if set to a falsy value will be
+// overridden by the corresponding configuration values, if those are set:
+//   configuration.activeLinkDecorator
+//   configuration.inactiveLinkDecorator
+$navigation.decorateLink('/dashboard');
 ```
 
 ##Additional Methods

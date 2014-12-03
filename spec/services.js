@@ -4,6 +4,8 @@ describe('services', function() {
   beforeEach(function() {
     module('navigation.service', function ($navigationProvider, $provide) {
       $navigationProvider.configure({
+        activeLinkDecorator: 'active-decorator',
+        inactiveLinkDecorator: 'inactive-decorator',
         securityService: '$security'
       });
       $provide.factory('$security', function () {
@@ -25,6 +27,8 @@ describe('services', function() {
         var configuration = $navigation.getConfiguration();
         configuration.inAudienceValidationFunction.should.be.a.function; // jshint ignore:line
         configuration.roleToAudienceMapFunction.should.be.a.function; // jshint ignore:line
+        configuration.activeLinkDecorator.should.equal('active-decorator');
+        configuration.inactiveLinkDecorator.should.equal('inactive-decorator');
         configuration.securityService.should.equal('$security');
       })
     );
@@ -161,6 +165,40 @@ describe('services', function() {
           $location.path().should.match('/home');
           $navigation.isActiveLocation('/home').should.be.true; // jshint ignore:line
           $navigation.isActiveLocation('home').should.be.true; // jshint ignore:line
+        })
+      );
+    });
+
+    describe('decorateLink', function() {
+      it('should return the configured active decorator when the link is active',
+        inject(function ($location, $navigation) {
+          $location.path('/home');
+          $location.path().should.match('/home');
+          $navigation.decorateLink('/home').should.equal('active-decorator');
+        })
+      );
+
+      it('should return the configured inactive decorator when the link is inactive',
+        inject(function ($location, $navigation) {
+          $location.path('/home');
+          $location.path().should.match('/home');
+          $navigation.decorateLink('/').should.equal('inactive-decorator');
+        })
+      );
+
+      it('should return the provided active decorator when the link is active',
+        inject(function ($location, $navigation) {
+          $location.path('/home');
+          $location.path().should.match('/home');
+          $navigation.decorateLink('/home', 'active-item', 'inactive-item').should.equal('active-item');
+        })
+      );
+
+      it('should return the provided inactive decorator when the link is inactive',
+        inject(function ($location, $navigation) {
+          $location.path('/home');
+          $location.path().should.match('/home');
+          $navigation.decorateLink('/', 'active-item', 'inactive-item').should.equal('inactive-item');
         })
       );
     });

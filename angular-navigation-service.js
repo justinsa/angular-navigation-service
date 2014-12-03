@@ -3,6 +3,8 @@
   var module = angular.module('navigation.service', []);
   module.provider('$navigation', function () {
     var configuration = {
+      activeLinkDecorator: undefined,
+      inactiveLinkDecorator: undefined,
       securityService: undefined,
       roleToAudienceMapFunction: function (userRole) {
         return userRole;
@@ -84,6 +86,16 @@
             path = path.slice(1);
           }
           return path === location;
+        },
+
+        /**
+         * returns the active decorator if the location is the current active location.
+         * returns the inactive decorator if the location is not the current active location.
+         */
+        decorateLink: function (item, active, inactive) {
+          active = active || configuration.activeLinkDecorator;
+          inactive = inactive || configuration.inactiveLinkDecorator;
+          return this.isActiveLocation(item) ? active : inactive;
         },
 
         /**
