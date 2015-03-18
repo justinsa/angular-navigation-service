@@ -73,19 +73,26 @@
          * returns true if the location is the current active location.
          */
         isActiveLocation: function (location) {
+          var i, locations, path;
           if (!_.isString(location)) {
             return false;
           }
-          location =  location.trim().toLowerCase();
-          if (_.isEmpty(location)) {
+          locations = _.words(location.toLowerCase(), /[\w\-]+/g);
+          if (_.isEmpty(locations)) {
             return false;
           }
-          var path = $location.path().toLowerCase();
-          if (location.charAt(0) !== '/') {
-            // remove leading front-slash from path
-            path = path.slice(1);
+          // normalize and remove leading front-slash from path
+          var path = $location.path().toLowerCase().slice(1);
+          path = _.words(path, /[\w\-]+/g);
+          if (locations.length > path.length) {
+            return false;
           }
-          return path === location;
+          for (i = 0; i < locations.length; ++i) {
+            if (locations[i] !== path[i]) {
+              return false;
+            }
+          }
+          return true;
         },
 
         /**

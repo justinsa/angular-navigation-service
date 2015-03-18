@@ -20,7 +20,7 @@
     "type": "git",
     "url": "git://github.com/EQCO/angular-navigation-service.git"
   },
-  "version": "0.0.3",
+  "version": "0.0.4",
   "dependencies": {
     "angular": ">=1.2.19",
     "lodash": ">=2.4.1"

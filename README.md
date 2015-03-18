@@ -55,21 +55,26 @@ The ng-navigation-service was designed in conjunction with the following project
 ##Basic Usage
 ###inAudience
 ```JAVASCRIPT
-// returns true if the user is in any of the specified audiences.
+// returns true if the user is in any of the specified audiences
 $navigation.inAudience('X', 'Y', 'Z');
 ```
 
 ###isActiveLocation
 ```JAVASCRIPT
-// returns true if the location is the current active location.
+// returns true if the location is the current active location
+// the following will match any location that starts with the /dashboard route
 $navigation.isActiveLocation('/dashboard');
+
+// can also handle sub-routes using '/'
+// the leading '/' is optional
+$navigation.isActiveLocation('dashboard/user');
 ```
 
 ###decorateLink
 decorateLink: function (item, active, inactive) {
 ```JAVASCRIPT
 // $navigation.decorateLink(item, active, inactive);
-// returns the active decorator if the location is the current active location.
+// returns the active decorator if the location is the current active location (see isActiveLocation).
 // returns the inactive decorator if the location is not the current active location.
 $navigation.decorateLink('/dashboard', 'active-item', undefined);
 

@@ -25,8 +25,8 @@ describe('services', function() {
     it('should have an expected default configuration',
       inject(function ($navigation) {
         var configuration = $navigation.getConfiguration();
-        configuration.inAudienceValidationFunction.should.be.a.function; // jshint ignore:line
-        configuration.roleToAudienceMapFunction.should.be.a.function; // jshint ignore:line
+        configuration.inAudienceValidationFunction.should.be.a.Function; // jshint ignore:line
+        configuration.roleToAudienceMapFunction.should.be.a.Function; // jshint ignore:line
         configuration.activeLinkDecorator.should.equal('active-decorator');
         configuration.inactiveLinkDecorator.should.equal('inactive-decorator');
         configuration.securityService.should.equal('$security');
@@ -37,7 +37,7 @@ describe('services', function() {
       inject(function ($navigation) {
         var functions = ['inAudience', 'isActiveLocation', 'getConfiguration'];
         for (var i in functions) {
-          $navigation[functions[i]].should.be.a.function; // jshint ignore:line
+          $navigation[functions[i]].should.be.a.Function; // jshint ignore:line
         }
       })
     );
@@ -61,13 +61,13 @@ describe('services', function() {
 
         it('should be true if anonymous',
           inject(function ($navigation) {
-            $navigation.inAudience('anonymous').should.be.true; // jshint ignore:line
+            $navigation.inAudience('anonymous').should.equal(true);
           })
         );
 
         it('should be false if all',
           inject(function ($navigation) {
-            $navigation.inAudience('all').should.be.false; // jshint ignore:line
+            $navigation.inAudience('all').should.equal(false);
           })
         );
       });
@@ -90,35 +90,35 @@ describe('services', function() {
 
         it('should be false if anonymous',
           inject(function ($security, $navigation) {
-            $security.isAuthenticated().should.be.true; // jshint ignore:line
-            $navigation.inAudience('anonymous').should.be.false; // jshint ignore:line
+            $security.isAuthenticated().should.equal(true);
+            $navigation.inAudience('anonymous').should.equal(false);
           })
         );
 
         it('should be true if all',
           inject(function ($security, $navigation) {
-            $security.isAuthenticated().should.be.true; // jshint ignore:line
-            $navigation.inAudience('all').should.be.true; // jshint ignore:line
+            $security.isAuthenticated().should.equal(true);
+            $navigation.inAudience('all').should.equal(true);
           })
         );
 
         it('should be false if user is not in audience',
           inject(function ($security, $navigation) {
-            $security.isAuthenticated().should.be.true; // jshint ignore:line
-            $navigation.inAudience('b').should.be.false; // jshint ignore:line
+            $security.isAuthenticated().should.equal(true);
+            $navigation.inAudience('b').should.equal(false);
           })
         );
 
         it('should be true if user is in audience',
           inject(function ($security, $navigation) {
-            $security.isAuthenticated().should.be.true; // jshint ignore:line
-            $navigation.inAudience('a').should.be.true; // jshint ignore:line
+            $security.isAuthenticated().should.equal(true);
+            $navigation.inAudience('a').should.equal(true);
           })
         );
 
         it('should be true if user is in any specified audience group',
           inject(function ($security, $navigation) {
-            $navigation.inAudience('a', 'b').should.be.true; // jshint ignore:line
+            $navigation.inAudience('a', 'b').should.equal(true);
           })
         );
       });
@@ -129,12 +129,12 @@ describe('services', function() {
         inject(function ($location, $navigation) {
           $location.path('/home');
           $location.path().should.match('/home');
-          $navigation.isActiveLocation().should.be.false; // jshint ignore:line
-          $navigation.isActiveLocation(undefined).should.be.false; // jshint ignore:line
-          $navigation.isActiveLocation(null).should.be.false; // jshint ignore:line
-          $navigation.isActiveLocation({}).should.be.false; // jshint ignore:line
-          $navigation.isActiveLocation([]).should.be.false; // jshint ignore:line
-          $navigation.isActiveLocation(1).should.be.false; // jshint ignore:line
+          $navigation.isActiveLocation().should.equal(false);
+          $navigation.isActiveLocation(undefined).should.equal(false);
+          $navigation.isActiveLocation(null).should.equal(false);
+          $navigation.isActiveLocation({}).should.equal(false);
+          $navigation.isActiveLocation([]).should.equal(false);
+          $navigation.isActiveLocation(1).should.equal(false);
         })
       );
 
@@ -142,29 +142,51 @@ describe('services', function() {
         inject(function ($location, $navigation) {
           $location.path('/home');
           $location.path().should.match('/home');
-          $navigation.isActiveLocation('').should.be.false; // jshint ignore:line
-          $navigation.isActiveLocation(' ').should.be.false; // jshint ignore:line
+          $navigation.isActiveLocation('').should.equal(false);
+          $navigation.isActiveLocation(' ').should.equal(false);
         })
       );
 
-      it('should be false if the location is not active',
+      it('should be false if the single part location is not active',
         inject(function ($location, $navigation) {
           $location.path('/home');
           $location.path().should.match('/home');
-          $navigation.isActiveLocation('/').should.be.false; // jshint ignore:line
-          $navigation.isActiveLocation('/homer').should.be.false; // jshint ignore:line
-          $navigation.isActiveLocation('/hom').should.be.false; // jshint ignore:line
-          $navigation.isActiveLocation('homer').should.be.false; // jshint ignore:line
-          $navigation.isActiveLocation('hom').should.be.false; // jshint ignore:line
+          $navigation.isActiveLocation('/').should.equal(false);
+          $navigation.isActiveLocation('/homer').should.equal(false);
+          $navigation.isActiveLocation('/hom').should.equal(false);
+          $navigation.isActiveLocation('homer').should.equal(false);
+          $navigation.isActiveLocation('hom').should.equal(false);
         })
       );
 
-      it('should be true if the location is active',
+      it('should be false if the multi-part location is not active',
+        inject(function ($location, $navigation) {
+          $location.path('/home/next');
+          $location.path().should.match('/home/next');
+          $navigation.isActiveLocation('/').should.equal(false);
+          $navigation.isActiveLocation('/home/nex').should.equal(false);
+          $navigation.isActiveLocation('/home/nexta').should.equal(false);
+          $navigation.isActiveLocation('/homer/next').should.equal(false);
+          $navigation.isActiveLocation('hom/nex').should.equal(false);
+          $navigation.isActiveLocation('home/next/next').should.equal(false);
+        })
+      );
+
+      it('should be true if the single part location is active',
         inject(function ($location, $navigation) {
           $location.path('/home');
           $location.path().should.match('/home');
-          $navigation.isActiveLocation('/home').should.be.true; // jshint ignore:line
-          $navigation.isActiveLocation('home').should.be.true; // jshint ignore:line
+          $navigation.isActiveLocation('/home').should.equal(true);
+          $navigation.isActiveLocation('home').should.equal(true);
+        })
+      );
+
+      it('should be true if the multi-part location is active',
+        inject(function ($location, $navigation) {
+          $location.path('/home/next');
+          $location.path().should.match('/home/next');
+          $navigation.isActiveLocation('/home/next').should.equal(true);
+          $navigation.isActiveLocation('home/next').should.equal(true);
         })
       );
     });
