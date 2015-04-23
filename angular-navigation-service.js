@@ -77,13 +77,11 @@
           if (!_.isString(location)) {
             return false;
           }
-          locations = _.words(location.toLowerCase(), /[\w\-]+/g);
+          locations = this.tokenizePath(location);
           if (_.isEmpty(locations)) {
             return false;
           }
-          // normalize and remove leading front-slash from path
-          var path = $location.path().toLowerCase().slice(1);
-          path = _.words(path, /[\w\-]+/g);
+          path = this.tokenizePath();
           if (locations.length > path.length) {
             return false;
           }
@@ -110,6 +108,21 @@
          */
         getConfiguration: function () {
           return configuration;
+        },
+
+        /**
+         * returns an in-order array of lowercase tokens from a location string.
+         * returns an empty array if no tokens are in the location string.
+         * returns an in-order array of lowercase tokens from the current active location, if no location parameter is provided.
+         */
+        tokenizePath: function (location) {
+          if (_.isUndefined(location) || _.isNull(location)) {
+            location = $location.path();
+          }
+          if (!_.isString(location)) {
+            return [];
+          }
+          return _.words(location.toLowerCase(), /[\w\-]+/g);
         }
       };
     }];

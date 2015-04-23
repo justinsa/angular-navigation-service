@@ -53,6 +53,7 @@ The ng-navigation-service was designed in conjunction with the following project
 * https://github.com/EQCO/angular-oauth-service
 
 ##Basic Usage
+
 ###inAudience
 ```JAVASCRIPT
 // returns true if the user is in any of the specified audiences
@@ -71,7 +72,6 @@ $navigation.isActiveLocation('dashboard/user');
 ```
 
 ###decorateLink
-decorateLink: function (item, active, inactive) {
 ```JAVASCRIPT
 // $navigation.decorateLink(item, active, inactive);
 // returns the active decorator if the location is the current active location (see isActiveLocation).
@@ -86,11 +86,24 @@ $navigation.decorateLink('/dashboard');
 ```
 
 ##Additional Methods
-These methods were primarily implemented for testing purposes, but they may be useful in special scenarios and are part of the exposed API.
+These methods were primarily implemented for testing or utility purposes, but they may be useful in special scenarios and are part of the exposed API.
 
+###getConfiguration
 ```JAVASCRIPT
 // Get the configuration hash
 $store.getConfiguration();
+```
+
+###tokenizePath
+```JAVASCRIPT
+// $navigation.tokenizePath(location);
+// returns an in-order array of lowercase tokens from a location string.
+// returns an empty array if no tokens are in the location string.
+// returns an in-order array of lowercase tokens from the current active location, if no location parameter is provided.
+$navigation.tokenizePath('/dashboard');
+
+// parameter @location is optional and if set to a falsy value will be
+// overridden by the value of ``$location.path()``.
 ```
 
 ##Development
