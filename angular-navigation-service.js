@@ -23,7 +23,7 @@
       configuration = _.defaults(configurationOpts, configuration);
     };
 
-    this.$get = ['$injector', '$location', '$log', function ($injector, $location, $log) {
+    this.$get = ['$injector', '$location', '$log', '$window', function ($injector, $location, $log, $window) {
       var secService;
       var securityService = function () {
         if (secService === undefined) {
@@ -101,6 +101,28 @@
           active = active || configuration.activeLinkDecorator;
           inactive = inactive || configuration.inactiveLinkDecorator;
           return this.isActiveLocation(item) ? active : inactive;
+        },
+
+        /**
+         * call this function to navigate to a route and optionally push the current location to history.
+         */
+        goto: function (route, noHistory) {
+          if (!_.isString(route)) {
+            route = '/';
+            noHistory = false;
+          }
+          var location = $location.path(route);
+          if (noHistory === true) {
+            // replace prevents the $location service from pushing the previous page to history
+            location.replace();
+          }
+        },
+
+        /**
+         * call this function to pop and navigate to the previous location from history.
+         */
+        back: function () {
+          $window.history.back();
         },
 
         /**

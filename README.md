@@ -47,7 +47,7 @@ app.config(['$navigationProvider', function ($navigationProvider) {
 }]);
 ```
 
-The ng-navigation-service was designed in conjunction with the following projects:
+The ng-navigation-service was designed in tandem with the following projects:
 
 * https://github.com/EQCO/angular-authentication-service
 * https://github.com/EQCO/angular-oauth-service
@@ -85,13 +85,25 @@ $navigation.decorateLink('/dashboard', 'active-item', undefined);
 $navigation.decorateLink('/dashboard');
 ```
 
+###goto
+```JAVASCRIPT
+// Navigate to a route and optionally push the current location to history.
+$navigation.goto(route, noHistory);
+```
+
+###back
+```JAVASCRIPT
+// Pop and navigate to the previous location from history.
+$navigation.back();
+```
+
 ##Additional Methods
 These methods were primarily implemented for testing or utility purposes, but they may be useful in special scenarios and are part of the exposed API.
 
 ###getConfiguration
 ```JAVASCRIPT
-// Get the configuration hash
-$store.getConfiguration();
+// Get the configuration options
+$navigation.getConfiguration();
 ```
 
 ###tokenizePath

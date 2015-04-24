@@ -41,6 +41,53 @@ describe('$navigation', function() {
     })
   );
 
+  describe('goto', function () {
+    it('should navigate to root on undefined input for route',
+      inject(function ($location, $navigation) {
+        $location.path('/home');
+        $location.path().should.match('/home');
+        $navigation.goto();
+        $location.path().should.match('/');
+      })
+    );
+
+    it('should navigate to root on null input for route',
+      inject(function ($location, $navigation) {
+        $location.path('/home');
+        $location.path().should.match('/home');
+        $navigation.goto(null);
+        $location.path().should.match('/');
+      })
+    );
+
+    it('should navigate to root on numeric input for route',
+      inject(function ($location, $navigation) {
+        $location.path('/home');
+        $location.path().should.match('/home');
+        $navigation.goto(120);
+        $location.path().should.match('/');
+      })
+    );
+
+    it('should navigate to root on object input for route',
+      inject(function ($location, $navigation) {
+        $location.path('/home');
+        $location.path().should.match('/home');
+        $navigation.goto({});
+        $location.path().should.match('/');
+      })
+    );
+
+    it('should navigate to a string route',
+      inject(function ($location, $navigation) {
+        $location.path('/');
+        $location.path().should.match('/');
+        $navigation.goto('home');
+        $location.path().should.match('/home');
+      })
+    );
+  });
+
   describe('tokenizePath', function () {
     it('should return an empty array for non-string parameter values',
       inject(function ($location, $navigation) {
