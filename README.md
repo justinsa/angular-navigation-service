@@ -1,3 +1,5 @@
+![Bower Version](https://img.shields.io/bower/v/ng-navigation-service.svg)
+
 A navigation helper service for Angular client applications.
 
 ##Dependencies
