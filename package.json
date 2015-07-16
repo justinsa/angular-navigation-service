@@ -1,9 +1,9 @@
 {
   "name": "ng-navigation-service",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "repository": {
     "type": "git",
-    "url": "https://github.com/EQCO/angular-navigation-service/"
+    "url": "https://github.com/justinsa/angular-navigation-service/"
   },
   "devDependencies": {
     "bower": "*",
