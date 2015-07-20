@@ -9,10 +9,7 @@
     "bower": "*",
     "gulp": "*",
     "gulp-jshint": "*",
-    "gulp-mocha": "*",
-    "gulp-mocha-phantomjs": "*",
-    "should": "*",
-    "sinon": "*"
+    "gulp-mocha-phantomjs": "*"
   },
   "engines": {
     "npm": "*"
