@@ -1,13 +1,17 @@
 {
   "name": "ng-navigation-service",
-  "author": "justinsa",
+  "authors": [
+    "Justin Saunders (https://github.com/justinsa)"
+  ],
   "description": "A navigation helper service for Angular client applications.",
   "keywords": [
     "angular",
+    "angular provider",
     "navigation",
-    "provider"
+    "navigation service"
   ],
   "homepage": "https://github.com/justinsa/angular-navigation-service",
+  "license": "MIT",
   "main": "./angular-navigation-service.js",
   "ignore": [
     ".jshintrc",
@@ -20,7 +24,6 @@
     "type": "git",
     "url": "git://github.com/justinsa/angular-navigation-service.git"
   },
-  "version": "0.0.6",
   "dependencies": {
     "angular": ">=1.2.19",
     "lodash": ">=2.4.1"

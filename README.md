@@ -1,4 +1,5 @@
 ![Bower Version](https://img.shields.io/bower/v/ng-navigation-service.svg)
+![Master Build Status](https://codeship.com/projects/016878e0-603a-0133-c6e2-5a99c145e314/status?branch=master)
 
 A navigation helper service for Angular client applications.
 

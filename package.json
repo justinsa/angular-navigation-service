@@ -1,5 +1,10 @@
 {
   "name": "ng-navigation-service",
+  "author": "Justin Saunders (https://github.com/justinsa)",
+  "contributors": [
+    "Justin Saunders (https://github.com/justinsa)"
+  ],
+  "license": "MIT",
   "version": "0.0.6",
   "repository": {
     "type": "git",
