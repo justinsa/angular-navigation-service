@@ -1,7 +1,24 @@
-(function (window, _, angular, undefined) {
+/* globals define, module */
+(function (root, factory) {
   'use strict';
-  var module = angular.module('navigation.service', []);
-  module.provider('$navigation', function () {
+  if (typeof module !== 'undefined' && module.exports) {
+    if (typeof angular === 'undefined') {
+      factory(
+        typeof _ === 'undefined' ? require('lodash') : root._,
+        require('angular')
+      );
+    } else {
+      factory(root._, root.angular);
+    }
+    module.exports = 'ng-navigation-service';
+  } else if (typeof define === 'function' && define.amd) {
+    define(['lodash', 'angular'], factory);
+  } else {
+    factory(root._, root.angular);
+  }
+}(this, function (_, angular, undefined) {
+  'use strict';
+  angular.module('navigation.service', []).provider('$navigation', function () {
     var configuration = {
       activeLinkDecorator: undefined,
       inactiveLinkDecorator: undefined,
@@ -149,4 +166,5 @@
       };
     }];
   });
-})(window, window._, window.angular);
+  return angular;
+}));
