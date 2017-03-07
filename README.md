@@ -1,5 +1,7 @@
 ![Bower Version](https://img.shields.io/bower/v/ng-navigation-service.svg)
+[![NPM Version](https://img.shields.io/npm/v/ng-navigation-service.svg)](https://www.npmjs.com/package/ng-navigation-service)
 ![Master Build Status](https://codeship.com/projects/016878e0-603a-0133-c6e2-5a99c145e314/status?branch=master)
+[![license](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com/justinsa/angular-navigation-service/blob/master/LICENSE)
 
 A navigation helper service for Angular client applications.
 
@@ -14,7 +16,7 @@ A navigation helper service for Angular client applications.
 ```JAVASCRIPT
 var app = angular.module('yourApp', ['navigation.service']);
 ```
-2. Configure the security service to use with the navigation provider:
+2. Configure a security service to use with the navigation provider:
 ```JAVASCRIPT
 app.config(['$navigationProvider', function ($navigationProvider) {
   $navigationProvider.configure({
@@ -52,8 +54,7 @@ app.config(['$navigationProvider', function ($navigationProvider) {
 
 The ng-navigation-service was designed in tandem with the following projects:
 
-* https://github.com/EQCO/angular-authentication-service
-* https://github.com/EQCO/angular-oauth-service
+* https://github.com/justinsa/angular-authentication-service
 
 ##Basic Usage
 

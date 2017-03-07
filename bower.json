@@ -24,13 +24,4 @@
     "type": "git",
     "url": "git://github.com/justinsa/angular-navigation-service.git"
   },
-  "dependencies": {
-    "angular": ">=1.2.19",
-    "lodash": ">=2.4.1"
-  },
-  "devDependencies": {
-    "angular-mocks": "*",
-    "mocha": "*",
-    "should": "*"
-  }
 }

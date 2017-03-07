@@ -12,7 +12,7 @@
       inAudienceValidationFunction: function (userRoles, audiences) {
         var userAudiences = _.flatten(userRoles, this.roleToAudienceMapFunction);
         return !_.isEmpty(userAudiences) && !_.isEmpty(audiences) &&
-          (_.find(audiences, function (audience) { return _.contains(userAudiences, audience); }) !== undefined);
+          (_.find(audiences, function (audience) { return _.includes(userAudiences, audience); }) !== undefined);
       }
     };
 

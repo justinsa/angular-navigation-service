@@ -1,27 +1,30 @@
 {
   "name": "ng-navigation-service",
+  "version": "0.1.0",
   "author": "Justin Saunders (https://github.com/justinsa)",
   "contributors": [
     "Justin Saunders (https://github.com/justinsa)"
   ],
   "license": "MIT",
-  "version": "0.0.6",
   "repository": {
     "type": "git",
     "url": "https://github.com/justinsa/angular-navigation-service/"
   },
   "devDependencies": {
-    "bower": "*",
+    "angular": "*",
+    "angular-mocks": "*",
     "gulp": "*",
     "gulp-jshint": "*",
-    "gulp-mocha-phantomjs": "*"
+    "gulp-mocha-phantomjs": "*",
+    "jshint": "*",
+    "lodash": "*",
+    "mocha": "*",
+    "should": "*"
   },
   "engines": {
     "npm": "*"
   },
   "scripts": {
-    "postinstall": "node ./node_modules/bower/bin/bower install",
-    "postupdate": "node ./node_modules/bower/bin/bower update",
-    "test": "gulp js:test"
+    "test": "gulp"
   }
 }
