@@ -1,4 +1,4 @@
-![Bower Version](https://img.shields.io/bower/v/ng-navigation-service.svg)
+[![Bower Version](https://img.shields.io/bower/v/ng-navigation-service.svg)](https://github.com/justinsa/angular-navigation-service)
 [![NPM Version](https://img.shields.io/npm/v/ng-navigation-service.svg)](https://www.npmjs.com/package/ng-navigation-service)
 ![Master Build Status](https://codeship.com/projects/016878e0-603a-0133-c6e2-5a99c145e314/status?branch=master)
 [![license](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com/justinsa/angular-navigation-service/blob/master/LICENSE)
