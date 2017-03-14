@@ -2,14 +2,10 @@
 (function (root, factory) {
   'use strict';
   if (typeof module !== 'undefined' && module.exports) {
-    if (typeof angular === 'undefined') {
-      factory(
-        typeof _ === 'undefined' ? require('lodash') : root._,
-        require('angular')
-      );
-    } else {
-      factory(root._, root.angular);
-    }
+    factory(
+      typeof _ === 'undefined' ? require('lodash') : root._,
+      typeof angular === 'undefined' ? require('angular') : root.angular
+    );
     module.exports = 'ng-navigation-service';
   } else if (typeof define === 'function' && define.amd) {
     define(['lodash', 'angular'], factory);
@@ -55,7 +51,7 @@
           secService = $injector.get(configuration.securityService);
           _.each(['isAuthenticated', 'roles'], function (methodName) {
             if (!_.has(secService, methodName)) {
-              $log.error('Matching service is missing method: ', methodName);
+              $log.error('Matching securityService is missing method: ', methodName);
               return undefined;
             }
           });

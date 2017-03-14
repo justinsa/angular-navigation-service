@@ -9,54 +9,57 @@ A navigation helper service for Angular client applications.
 
 * AngularJS - http://angularjs.org
 * Lodash - http://lodash.com
+* ng-authentication-service - https://github.com/justinsa/angular-authentication-service
+
+The ng-navigation-service was designed in tandem with the ng-authentication-service, but it is not a hard requirement. The configured security service must support the following API:
+
+  1. ```boolean isAuthenticated()```
+  2. ```[String] roles()```
 
 ##Basic Setup
 
-1. Add this module to your app as a dependency:
+Add this module to your app as a dependency:
 ```JAVASCRIPT
 var app = angular.module('yourApp', ['navigation.service']);
 ```
-2. Configure a security service to use with the navigation provider:
+
+Configure a security service to use with the navigation provider:
 ```JAVASCRIPT
 app.config(['$navigationProvider', function ($navigationProvider) {
   $navigationProvider.configure({
-    securityService: 'authentication.service'
+    securityService: '$authentication'
   });
 }]);
 ```
-3. Inject $navigation as a parameter in declarations that require it:
+
+Inject $navigation as a parameter in declarations that require it:
 ```JAVASCRIPT
 app.controller('yourController', function($scope, $navigation){ ... });
 ```
 
 ##Configuration Options
 
-The default configuration is:
+To override the default configuration options, configure the module with an options argument during application configuration and provide overrides for any of the following options.
 
-1. securityService: undefined - this string value must be provided during configuration and must be a loaded service that supports the following API:
-  1. function ```isAuthenticated()```
-  2. function ```roles()```
-2. roleToAudienceMapFunction: function returns the userRole provided.
-3. inAudienceValidationFunction: function determines if the userRoles are in the audiences.
-4. activeLinkDecorator: mixed
-5. inactiveLinkDecorator: mixed
-
-To override the default configuration options, configure the module with an options argument during application configuration:
 ```JAVASCRIPT
 app.config(['$navigationProvider', function ($navigationProvider) {
   $navigationProvider.configure({
-    securityService: 'authentication.service',
-    roleToAudienceMapFunction: function (userRole) { ... },
-    inAudienceValidationFunction: function (userRoles, audiences) { ... }
+    activeLinkDecorator: undefined,
+    inactiveLinkDecorator: undefined,
+    securityService: undefined,
+    roleToAudienceMapFunction: function (userRole) {
+      return userRole;
+    },
+    inAudienceValidationFunction: function (userRoles, audiences) {
+      var userAudiences = _.flatten(userRoles, this.roleToAudienceMapFunction);
+      return !_.isEmpty(userAudiences) && !_.isEmpty(audiences) &&
+        (_.find(audiences, function (audience) { return _.includes(userAudiences, audience); }) !== undefined);
+    }
   });
 }]);
 ```
 
-The ng-navigation-service was designed in tandem with the following projects:
-
-* https://github.com/justinsa/angular-authentication-service
-
-##Basic Usage
+##API
 
 ###inAudience
 ```JAVASCRIPT

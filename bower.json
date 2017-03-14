@@ -12,7 +12,7 @@
   ],
   "homepage": "https://github.com/justinsa/angular-navigation-service",
   "license": "MIT",
-  "main": "./angular-navigation-service.js",
+  "main": "./ng-navigation-service.js",
   "ignore": [
     ".jshintrc",
     "gulpfile.js",

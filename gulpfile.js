@@ -2,7 +2,7 @@
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 gulp.task('js:lint', function() {
-  return gulp.src(['./angular-navigation-service.js', './gulpfile.js', './tests.js'])
+  return gulp.src(['./ng-navigation-service.js', './gulpfile.js', './tests.js'])
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });
