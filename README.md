@@ -5,10 +5,13 @@
 
 A navigation helper service for Angular client applications.
 
-##Dependencies
+## Dependencies
 
 * AngularJS - http://angularjs.org
 * Lodash - http://lodash.com
+
+## Configurable Dependencies
+
 * ng-authentication-service - https://github.com/justinsa/angular-authentication-service
 
 The ng-navigation-service was designed in tandem with the ng-authentication-service, but it is not a hard requirement. The configured security service must support the following API:
@@ -16,7 +19,7 @@ The ng-navigation-service was designed in tandem with the ng-authentication-serv
   1. ```boolean isAuthenticated()```
   2. ```[String] roles()```
 
-##Basic Setup
+## Basic Setup
 
 Add this module to your app as a dependency:
 ```JAVASCRIPT
@@ -37,7 +40,7 @@ Inject $navigation as a parameter in declarations that require it:
 app.controller('yourController', function($scope, $navigation){ ... });
 ```
 
-##Configuration Options
+## Configuration Options
 
 To override the default configuration options, configure the module with an options argument during application configuration and provide overrides for any of the following options.
 
@@ -59,15 +62,15 @@ app.config(['$navigationProvider', function ($navigationProvider) {
 }]);
 ```
 
-##API
+## API
 
-###inAudience
+### inAudience
 ```JAVASCRIPT
 // returns true if the user is in any of the specified audiences
 $navigation.inAudience('X', 'Y', 'Z');
 ```
 
-###isActiveLocation
+### isActiveLocation
 ```JAVASCRIPT
 // returns true if the location is the current active location
 // the following will match any location that starts with the /dashboard route
@@ -78,7 +81,7 @@ $navigation.isActiveLocation('/dashboard');
 $navigation.isActiveLocation('dashboard/user');
 ```
 
-###decorateLink
+### decorateLink
 ```JAVASCRIPT
 // $navigation.decorateLink(item, active, inactive);
 // returns the active decorator if the location is the current active location (see isActiveLocation).
@@ -92,28 +95,28 @@ $navigation.decorateLink('/dashboard', 'active-item', undefined);
 $navigation.decorateLink('/dashboard');
 ```
 
-###goto
+### goto
 ```JAVASCRIPT
 // Navigate to a route and optionally push the current location to history.
 $navigation.goto(route, noHistory);
 ```
 
-###back
+### back
 ```JAVASCRIPT
 // Pop and navigate to the previous location from history.
 $navigation.back();
 ```
 
-##Additional Methods
+## Additional Methods
 These methods were primarily implemented for testing or utility purposes, but they may be useful in special scenarios and are part of the exposed API.
 
-###getConfiguration
+### getConfiguration
 ```JAVASCRIPT
 // Get the configuration options
 $navigation.getConfiguration();
 ```
 
-###tokenizePath
+### tokenizePath
 ```JAVASCRIPT
 // $navigation.tokenizePath(location);
 // returns an in-order array of lowercase tokens from a location string.
@@ -125,7 +128,7 @@ $navigation.tokenizePath('/dashboard');
 // overridden by the value of ``$location.path()``.
 ```
 
-##Development
+## Development
 After forking you should only have to run ```npm install``` from a command line to get your environment setup.
 
 After install you have two gulp commands available to you:
