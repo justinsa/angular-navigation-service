@@ -50,6 +50,7 @@ app.config(['$navigationProvider', function ($navigationProvider) {
     activeLinkDecorator: undefined,
     inactiveLinkDecorator: undefined,
     securityService: undefined,
+    extensions: undefined,
     roleToAudienceMapFunction: function (userRole) {
       return userRole;
     },
@@ -61,6 +62,10 @@ app.config(['$navigationProvider', function ($navigationProvider) {
   });
 }]);
 ```
+
+### extensions
+
+All properties (own and inherited) of the extensions object will be available as native to the $navigation service API. The extensions object is applied using the [_.defaults(...)](https://lodash.com/docs/#defaults) method and cannot overwrite any of the existing API properties. This is intended to provide implementors with a way to add objects or functions that are application specific and should fall within the context of the navigation service to expose, e.g., a hash of link objects or a function to re-write links.
 
 ## API
 

@@ -18,7 +18,9 @@
     var configuration = {
       activeLinkDecorator: undefined,
       inactiveLinkDecorator: undefined,
+      links: undefined,
       securityService: undefined,
+      extensions: undefined,
       roleToAudienceMapFunction: function (userRole) {
         return userRole;
       },
@@ -59,7 +61,9 @@
         return secService;
       };
 
-      return {
+      var api = {
+        links: configuration.links,
+
         /**
          * returns true if the user is in any of the specified audiences.
          */
@@ -160,6 +164,7 @@
           return _.words(location.toLowerCase(), /[\w\-]+/g);
         }
       };
+      return _.defaults(api, configuration.extensions);
     }];
   });
   return angular;
