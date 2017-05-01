@@ -18,7 +18,6 @@
     var configuration = {
       activeLinkDecorator: undefined,
       inactiveLinkDecorator: undefined,
-      links: undefined,
       securityService: undefined,
       extensions: undefined,
       roleToAudienceMapFunction: function (userRole) {
@@ -62,8 +61,6 @@
       };
 
       var api = {
-        links: configuration.links,
-
         /**
          * returns true if the user is in any of the specified audiences.
          */
