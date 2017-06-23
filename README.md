@@ -55,9 +55,9 @@ app.config(['$navigationProvider', function ($navigationProvider) {
       return userRole;
     },
     inAudienceValidationFunction: function (userRoles, audiences) {
-      var userAudiences = _.flatten(userRoles, this.roleToAudienceMapFunction);
+      var userAudiences = _.flatten(_.map(userRoles, this.roleToAudienceMapFunction));
       return !_.isEmpty(userAudiences) && !_.isEmpty(audiences) &&
-        (_.find(audiences, function (audience) { return _.includes(userAudiences, audience); }) !== undefined);
+        _.some(audiences, function (audience) { return _.includes(userAudiences, audience); });
     }
   });
 }]);
@@ -73,6 +73,9 @@ All properties (own and inherited) of the extensions object will be available as
 ```JAVASCRIPT
 // returns true if the user is in any of the specified audiences
 $navigation.inAudience('X', 'Y', 'Z');
+
+// will flatten provided arrays that are one-level deep in the arguments list
+$navigation.inAudience('X', ['Y', 'Z'], ['A']) === $navigation.inAudience('X', 'Y', 'Z', 'A')
 ```
 
 ### isActiveLocation

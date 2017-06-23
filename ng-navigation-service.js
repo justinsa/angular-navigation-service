@@ -24,9 +24,9 @@
         return userRole;
       },
       inAudienceValidationFunction: function (userRoles, audiences) {
-        var userAudiences = _.flatten(userRoles, this.roleToAudienceMapFunction);
+        var userAudiences = _.flatten(_.map(userRoles, this.roleToAudienceMapFunction));
         return !_.isEmpty(userAudiences) && !_.isEmpty(audiences) &&
-          (_.find(audiences, function (audience) { return _.includes(userAudiences, audience); }) !== undefined);
+          _.some(audiences, function (audience) { return _.includes(userAudiences, audience); });
       }
     };
 
@@ -40,7 +40,7 @@
     this.$get = ['$injector', '$location', '$log', '$window', function ($injector, $location, $log, $window) {
       var secService;
       var securityService = function () {
-        if (secService === undefined) {
+        if (_.isUndefined(secService)) {
           if (!_.isString(configuration.securityService)) {
             $log.error('No securityService configuration value provided');
             return undefined;
@@ -65,7 +65,7 @@
          * returns true if the user is in any of the specified audiences.
          */
         inAudience: function () {
-          var args = _.toArray(arguments);
+          var args = _.flatten(_.toArray(arguments));
           var authenticated = securityService().isAuthenticated();
           // handle 'all' and 'anonymous' special cases
           if (args.length === 1 && _.isString(args[0])) {

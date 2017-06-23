@@ -16,7 +16,7 @@ describe('$navigation', function() {
     it('should be exposed as part of the service',
       inject(function ($navigation) {
         $navigation.links.key.should.equal('value');
-        $navigation.linker.should.be.a.Function; // jshint ignore:line
+        $navigation.linker.should.be.a.Function();
       })
     );
   });
@@ -43,8 +43,8 @@ describe('$navigation', function() {
     it('should have an expected default configuration',
       inject(function ($navigation) {
         var configuration = $navigation.getConfiguration();
-        configuration.inAudienceValidationFunction.should.be.a.Function; // jshint ignore:line
-        configuration.roleToAudienceMapFunction.should.be.a.Function; // jshint ignore:line
+        configuration.inAudienceValidationFunction.should.be.a.Function();
+        configuration.roleToAudienceMapFunction.should.be.a.Function();
         configuration.activeLinkDecorator.should.equal('active-decorator');
         configuration.inactiveLinkDecorator.should.equal('inactive-decorator');
         configuration.securityService.should.equal('$security');
@@ -55,7 +55,7 @@ describe('$navigation', function() {
       inject(function ($navigation) {
         var functions = ['decorateLink', 'getConfiguration', 'inAudience', 'isActiveLocation', 'tokenizePath'];
         for (var i in functions) {
-          $navigation[functions[i]].should.be.a.Function; // jshint ignore:line
+          $navigation[functions[i]].should.be.a.Function();
         }
       })
     );
@@ -233,6 +233,12 @@ describe('$navigation', function() {
         it('should be true if user is in any specified audience group',
           inject(function ($security, $navigation) {
             $navigation.inAudience('a', 'b').should.equal(true);
+          })
+        );
+
+        it('should handle an array as part of the argument list',
+          inject(function ($security, $navigation) {
+            $navigation.inAudience('b', ['a']).should.equal(true);
           })
         );
       });
